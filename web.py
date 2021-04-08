@@ -1,19 +1,25 @@
 from flask import Flask, redirect, url_for, render_template
-
+from forms import LoginForm, RegForm
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'myproj'
 
-
-@app.route("/login.html")
+@app.route("/login.html",methods = ["GET","POST"])
 def login():
-    return render_template("login.html")
+    form = LoginForm()
+    return render_template("login.html",form=form)
 
 @app.route("/index.html")
 def dashboard():
     return render_template("index.html")
 
-@app.route("/register.html")
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+@app.route("/register.html", methods=["GET","POST"])
 def registration():
-    return render_template("register.html")
+    form = RegForm()
+    return render_template("register.html",form=form)
 
 @app.route("/chart.html")
 def charts():

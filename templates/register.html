@@ -49,24 +49,25 @@
                         <div class="login-form">
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label>Username</label>
-                                    <input class="au-input au-input--full" type="text" name="username" placeholder="Username">
+                                    <label>{{ form.username.label}}</label>
+                                   <p class="au-input au-input--full"> {{form.username}} </p>
                                 </div>
                                 <div class="form-group">
-                                    <label>Pan Number</label>
-                                    <input class="au-input au-input--full" type="text" name="PanNo" placeholder="PanNo.">
+                                    <label>{{form.panno.label}}</label>
+                                  <p class="au-input au-input--full">  {{form.panno}} </p>
+            
                                 </div>
                                 <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <label>{{form.email.label}}</label>
+                                     <p class="au-input au-input--full">{{form.email}} </p>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
+                                    <label>{{form.password.label}}</label>
+                                   <p class="au-input au-input--full" >{{form.password}} </p>
                                 </div>
-
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">register</button>
-
+                                <p class="au-btn au-btn--block au-btn--green m-b-20" type="submit">
+                                {{ form.submit() }}
+                                </p>
                             </form>
                             <div class="register-link">
                                 <p>

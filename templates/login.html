@@ -49,17 +49,21 @@
                         <div class="login-form">
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <label>{{form.email.label}}</label>
+                                    <p class="au-input au-input--full" >
+                                        {{form.email}}
+                                        </p>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
+                                    <label>{{form.password.label}}</label>
+                                    <p class="au-input au-input--full">
+                                        {{form.password}}
+                                        </p>
                                 </div>
 
                             </form>
                             <form method="get" action="index.html">
-                              <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
+                              <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit"> {{ form.submit() }}</button>
                             </form>
                             <div class="register-link">
                                 <p>
