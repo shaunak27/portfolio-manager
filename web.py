@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template
-from forms import LoginForm, RegForm
+from forms import LoginForm, RegForm, holdingForm, watchlistForm
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'myproj'
 
@@ -8,13 +8,15 @@ def login():
     form = LoginForm()
     return render_template("login.html",form=form)
 
-@app.route("/index.html")
+@app.route("/index.html",methods=["GET","POST"])
 def dashboard():
-    return render_template("index.html")
+    form = holdingForm()
+    return render_template("index.html",form=form)
 
-@app.route("/")
+@app.route("/",methods=["GET","POST"])
 def home():
-    return render_template("index.html")
+    form = holdingForm()
+    return render_template("index.html",form=form)
 
 @app.route("/register.html", methods=["GET","POST"])
 def registration():
@@ -29,9 +31,10 @@ def charts():
 def news():
     return render_template("card.html")
 
-@app.route("/table.html")
+@app.route("/table.html", methods=["GET","POST"])
 def WatchList():
-    return render_template("table.html")
+    form = watchlistForm()
+    return render_template("table.html",form=form)
 
 
 if __name__ == "__main__":

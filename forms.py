@@ -14,3 +14,14 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     email = EmailField('Email',validators=[DataRequired()])
     submit = SubmitField('Register')
+
+class holdingForm(FlaskForm):
+    stockName = StringField('Stock Name', validators=[DataRequired()])
+    date= StringField('Date', validators=[DataRequired()])
+    buyingPrice = IntegerField('Buying Price', validators=[DataRequired()])
+    quantity = IntegerField('Quantity', validators=[DataRequired()])
+    submit = SubmitField('Register')
+
+class watchlistForm(FlaskForm):
+    stockWatch = StringField('Stock Name', validators=[DataRequired()])
+    submit = SubmitField('Register')
