@@ -1,4 +1,4 @@
-from web import db
+from app import db
 
 
 class Investor(db.Model):
@@ -21,10 +21,11 @@ class Holdings(db.Model):
     quantity = db.Column(db.Integer)
     date = db.Column(db.Date)
     buyingprice = db.Column(db.Integer)
-
-    def __init__(self, orderid, stockname, quantity, buyingprice, date):
+    panid = db.Column(db.String(10))
+    def __init__(self, orderid, stockname, quantity, buyingprice, date,panid):
         self.orderid = orderid
         self.stockname = stockname
         self.quantity = quantity
         self.buyingprice = buyingprice
         self.date = date
+        self.panid = panid

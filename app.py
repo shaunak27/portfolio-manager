@@ -4,13 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 from flask import Flask, redirect, url_for, render_template
 from forms import LoginForm, RegForm, holdingForm, watchlistForm
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "myproj"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///manager.sqlite3"
 db = SQLAlchemy(app)
 from models import *
-
+migrate = Migrate(app, db)
 
 @app.route("/login.html", methods=["GET", "POST"])
 def login():
@@ -18,11 +19,10 @@ def login():
         user = Investor.query.filter_by(
             panid=request.form["panid"], password=request.form["password"]
         ).first()
-        print("hello", user)
         if user:
             session["logged_in"] = True
             session["username"] = user.username
-            print("hello", user)
+            session["panid"] = user.panid
             return redirect(url_for("dashboard"))
         else:
             flash("Login details are Incorrect !")
@@ -33,7 +33,7 @@ def login():
 
 @app.route("/index.html", methods=["GET", "POST"])
 def dashboard():
-    if session.get("logged_in") is None or session["logged_in"] == False:
+    if session.get("logged_in") is None or session.get("panid") is None or session["logged_in"] == False:
         return redirect(url_for("login"))
     if request.method == "POST":
         data = Holdings(
@@ -42,13 +42,17 @@ def dashboard():
             quantity=request.form["quantity"],
             date=datetime.strptime(request.form["date"], "%d/%m/%Y").date(),
             buyingprice=request.form["buyingprice"],
+            panid=session['panid']
         )
         db.session.add(data)
         db.session.commit()
         flash("Record was successfully added")
         return redirect(url_for("dashboard"))
+    records = Holdings.query.filter_by(
+            panid = session['panid']
+        ).all()
     form = holdingForm()
-    return render_template("index.html", form=form)
+    return render_template("index.html", form=form,data=records)
 
 
 @app.route("/")
@@ -69,6 +73,7 @@ def registration():
         db.session.commit()
         session["logged_in"] = True
         session["username"] = user.username
+        session["register"] = user.panid
         flash("Record was successfully added")
         return redirect(url_for("dashboard"))
     form = RegForm()
@@ -79,6 +84,7 @@ def registration():
 def logout():
     # remove the username from the session if it is there
     session.pop("username", None)
+    session.pop("panid", None)
     session["logged_in"] = False
     return redirect(url_for("login"))
 
