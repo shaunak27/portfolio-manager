@@ -37,7 +37,7 @@
     * {box-sizing: border-box;}
     .form-popup {
         display: none;
-        position: fixed;
+        position: sticky;
         bottom: 0;
         right: 15px;
         border: 3px solid #f1f1f1;
@@ -47,7 +47,7 @@
 
       /* Add styles to the form container */
       .form-container {
-        max-width: 300px;
+        max-width: 100%;
         padding: 10px;
         background-color: white;
       }
@@ -256,32 +256,13 @@
                                     <div class="col-md-12">
                                         <div class="overview-wrap">
                                             <h2 class="title-1">Your WatchList</h2>
-                                            <button class="au-btn au-btn-icon au-btn--blue" onclick="openForm()">
-                                                <i class="zmdi zmdi-plus"></i>Add Stock</button>
-                                                <div class="form-popup" id="myForm">
-                                                    <form action="/action_page.php" class="form-container">
-                                                      
-
-                                                        <label><b>{{form.stockwatch.label}}</b></label>
-                                                        <p>{{form.stockwatch}}</p>
-
-
-                                                        <button type="submit" class="btn">Submit</button>
-                                                        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-                                                    </form>
-                                                  </div>
-                                                  <script>
-                                                      function openForm() {
-                                                      document.getElementById("myForm").style.display = "block";
-                                                      }
-
-                                                      function closeForm() {
-                                                      document.getElementById("myForm").style.display = "none";
-                                                      }
-                                                  </script>
+                                            
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                               <div class="col-lg-9">
+                    
                                 <!-- DATA TABLE-->
                                 <div class="table-responsive m-b-40">
                                     <table class="table table-borderless table-data3">
@@ -354,10 +335,37 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                </div>
+
+                                <div class = "col-lg-3">
+                                <button class="au-btn au-btn-icon au-btn--blue" onclick="openForm()">
+                                    <i class="zmdi zmdi-plus"></i>Add Stock</button>
+                                    <div class="form-popup" id="myForm">
+                                        <form action="/action_page.php" class="form-container">
+                                          
+
+                                            <label><b>{{form.stockwatch.label}}</b></label>
+                                            <p>{{form.stockwatch}}</p>
+
+
+                                            <button type="submit" class="btn">Submit</button>
+                                            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                        </form>
+                                      </div>
+                                      <script>
+                                          function openForm() {
+                                          document.getElementById("myForm").style.display = "block";
+                                          }
+
+                                          function closeForm() {
+                                          document.getElementById("myForm").style.display = "none";
+                                          }
+                                      </script>
                                 <!-- END DATA TABLE-->
                             </div>
                         </div>
-
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
