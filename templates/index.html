@@ -36,19 +36,23 @@
   	body {font-family: Arial, Helvetica, sans-serif;}
   	* {box-sizing: border-box;}
     .form-popup {
-    	  display: none;
-    	  position: fixed;
-    	  bottom: 0;
-    	  right: 15px;
-    	  border: 3px solid #f1f1f1;
-    	  z-index: 9;
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px; 
+            border: 3px solid #f1f1f1;
+            z-index: 9; 
+            /* width: 80%;
+            height: 80%; */
+            overflow:scroll;
     	}
 
     	/* Add styles to the form container */
     	.form-container {
-    	  max-width: 300px;
+    	  width: 300px;
     	  padding: 10px;
-    	  background-color: white;
+    	  background-color: rgb(226, 211, 211);
+          overflow:scroll;
     	}
 
     	/* Full-width input fields */
@@ -91,6 +95,12 @@
 </head>
 
 <body class="animsition">
+    {% for mesg in get_flashed_messages() %}
+    <script type="text/javascript">
+        var msg = '{{ mesg }}'
+    alert(msg)
+    </script>
+    {% endfor %}
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
         <header class="header-mobile d-block d-lg-none">
@@ -258,17 +268,19 @@
                                     <button class="au-btn au-btn-icon au-btn--blue" onclick="openForm()">
                                         <i class="zmdi zmdi-plus"></i>add position</button>
                                           <div class="form-popup" id="myForm">
-                                              <form action="/action_page.php" class="form-container">
+                                              <form class="form-container" method="post">
                                                   <h2>Enter Details</h2>
+                                                  <label><b>{{form.orderid.label}}</b></label>
+                                                  <p>{{form.orderid}}</p>
 
-                                                  <label><b>{{form.stockName.label}}</b></label>
-                                                  <p>{{form.stockName}}</p>
+                                                  <label><b>{{form.stockname.label}}</b></label>
+                                                  <p>{{form.stockname}}</p>
 
                                                   <label><b>{{form.date.label}}</b></label>
                                                   <p>{{form.date}}</p>
 
-                                                  <label><b>{{form.buyingPrice.label}}</b></label>
-                                                  <p>{{form.buyingPrice}}</p>
+                                                  <label><b>{{form.buyingprice.label}}</b></label>
+                                                  <p>{{form.buyingprice}}</p>
 
                                                   <label><b>{{form.quantity.label}}</b></label>
                                                   <p>{{form.quantity}}</p>

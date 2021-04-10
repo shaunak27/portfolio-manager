@@ -37,8 +37,11 @@
 
 <body class="animsition">
     {% for mesg in get_flashed_messages() %}
-        <script>{{alert(mesg);}}</script>
-        {% endfor %}
+    <script type="text/javascript">
+        var msg = '{{ mesg }}'
+    alert(msg)
+    </script>
+    {% endfor %}
     <div class="page-wrapper">
         <div class="page-content--bge5">
             <div class="container">
