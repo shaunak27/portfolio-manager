@@ -36,6 +36,9 @@
 </head>
 
 <body class="animsition">
+    {% for mesg in get_flashed_messages() %}
+        <script>{{alert(mesg);}}</script>
+        {% endfor %}
     <div class="page-wrapper">
         <div class="page-content--bge5">
             <div class="container">
@@ -53,8 +56,8 @@
                                    <p class="au-input au-input--full"> {{form.username}} </p>
                                 </div>
                                 <div class="form-group">
-                                    <label>{{form.panno.label}}</label>
-                                  <p class="au-input au-input--full">  {{form.panno}} </p>
+                                    <label>{{form.panid.label}}</label>
+                                  <p class="au-input au-input--full">  {{form.panid}} </p>
             
                                 </div>
                                 <div class="form-group">

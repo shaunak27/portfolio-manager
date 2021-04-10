@@ -7,10 +7,10 @@ class RegForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     email = EmailField('Email', validators=[DataRequired()])
-    panno = IntegerField('Pan No.', validators=[DataRequired()])
+    panid = StringField('Pan Id.', validators=[DataRequired()])
     submit = SubmitField('Register')
 
 class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
-    email = EmailField('Email',validators=[DataRequired()])
-    submit = SubmitField('Register')
+    panid = StringField('Pan Id.',validators=[DataRequired()])
+    submit = SubmitField('Login')

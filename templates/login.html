@@ -36,6 +36,14 @@
 </head>
 
 <body class="animsition">
+    
+    {% for mesg in get_flashed_messages() %}
+    <script type="text/javascript">
+        var msg = '{{ mesg }}'
+    alert(msg)
+    </script>
+    {% endfor %}
+      
     <div class="page-wrapper">
         <div class="page-content--bge5">
             <div class="container">
@@ -49,9 +57,9 @@
                         <div class="login-form">
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label>{{form.email.label}}</label>
+                                    <label>{{form.panid.label}}</label>
                                     <p class="au-input au-input--full" >
-                                        {{form.email}}
+                                        {{form.panid}}
                                         </p>
                                 </div>
                                 <div class="form-group">
@@ -61,9 +69,10 @@
                                         </p>
                                 </div>
 
-                            </form>
-                            <form method="get" action="index.html">
-                              <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit"> {{ form.submit() }}</button>
+                            
+                            <p class="au-btn au-btn--block au-btn--green m-b-20" type="submit">
+                                {{ form.submit() }}
+                                </p>
                             </form>
                             <div class="register-link">
                                 <p>
