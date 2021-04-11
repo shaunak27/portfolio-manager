@@ -1,0 +1,131 @@
+[ { "name":  "CIPLA" , "url" : "https://money.rediff.com/companies/Cipla-Ltd/12540010", "sector": "Pharmaceuticals" }, 
+
+
+{"name": "SUNPHARMA", "url" : "https://money.rediff.com/companies/Sun-Pharmaceutical-Industries-Ltd/12540191", "sector":"Pharmaceuticals"},
+ 
+{"name":"HINDUNILVR","url":
+"https://money.rediff.com/companies/Hindustan-Unilever-Ltd/12520002", "sector":"Diversified"},
+ 
+{"name":"TECHM ", "url" : "https://money.rediff.com/companies/Tech-Mahindra-Ltd/10520003", "sector":"Technology"},
+ 
+{"name": "TATACONSUM", "url" : "https://money.rediff.com/companies/Tata-Consumer-Products-Ltd/12660006", "sector":"Tea and Coffee"},
+ 
+{"name": "WIPRO", "url" : "https://money.rediff.com/companies/Wipro-Ltd/11060011", "sector":"Technology"},
+ 
+{"name": "DRREDDY", "url" : "https://money.rediff.com/companies/Dr-Reddy-S-Laboratories-Ltd/12540015", "sector":"Pharmaceuticals"},
+ 
+{"name": "TITAN", "url" : "https://money.rediff.com/companies/Titan-Company-Ltd/12600001", "sector":"Miscellaneous"}, 
+
+
+{"name": "JSWSTEEL", "url" : "https://money.rediff.com/companies/Jsw-Steel-Ltd/15530059", "sector":"Metal"}, 
+
+
+{"name": "TATAMOTORS", "url" : "https://money.rediff.com/companies/Tata-Motors-Ltd/10510008", "sector":"Auto"}, 
+
+
+{"name": "DIVISLAB", "url" : "https://money.rediff.com/companies/Divi-S-Laboratories-Ltd/12540408", "sector":"Pharmaceuticals"}, 
+
+
+{"name": "KOTAKBANK", "url" : "https://money.rediff.com/companies/Kotak-Mahindra-Bank-Ltd/14060005", "sector":"Bank"},
+ 
+{"name": "HCLTECH", "url" : "https://money.rediff.com/companies/Hcl-Technologies-Ltd/13020101", "sector":"Technology"}, 
+
+
+{"name": "HDFC", "url" : "https://money.rediff.com/companies/Housing-Development-Finance-Corporation-Ltd/14080001", "sector":"Finance"},
+ 
+{"name": "ONGC", "url" : "https://money.rediff.com/companies/Oil-And-Natural-Gas-Corporation-Ltd/12140006", "sector":"Oil and Gas"}, 
+
+
+{"name": "SBILIFE", "url" : "https://money.rediff.com/companies/Sbi-Life-Insurance-Company-Ltd/14020014", "sector":"Insurance"},
+ 
+{"name": "BHARTIARTL", "url" : "https://money.rediff.com/companies/Bharti-Airtel-Ltd/15200022", "sector":"Communication"}, 
+
+
+{"name": "TCS", "url" : "https://money.rediff.com/companies/Tata-Consultancy-Services-Ltd/13020033", "sector":"Technology"},
+ 
+{"name": "MARUTI", "url" : "https://money.rediff.com/companies/Maruti-Suzuki-India-Ltd/10520005", "sector":"Auto"},
+ 
+{"name": "BAJAJ-AUTO", "url" : "https://money.rediff.com/companies/Bajaj-Auto-Ltd/10540026", "sector":"Auto"},
+ 
+{"name": "INFY", "url" : "https://money.rediff.com/companies/Infosys-Ltd/13020007", "sector":"Technology"},
+ 
+{"name": "SHREECEM", "url" : "https://money.rediff.com/companies/Shree-Cements-Ltd/11510016", "sector":"Cement"},
+ 
+{"name": "POWERGRID", "url" : "https://money.rediff.com/companies/Power-Grid-Corporation-Of-India-Ltd/15130029", "sector":"Energy"}, 
+
+
+{"name": "ITC", "url" : "https://money.rediff.com/companies/Itc-Ltd/12630003", "sector":"Diversified"}, 
+
+
+{"name": "ADANIPORTS", "url" : "https://money.rediff.com/companies/Adani-Ports-Special-Economic-Zone-Ltd/17025086", "sector":"Engineering"}, 
+
+
+{"name": "BAJAJFINSV", "url" : "https://money.rediff.com/companies/Bajaj-Finserv-Ltd/14010665", "sector":"Finance"}, 
+{"name": "NESTLEINDIA", "url" : "https://money.rediff.com/companies/Nestle-India-Ltd/11120007", "sector":"FMCG"},
+ 
+{"name": "HEROMOTOCO", "url" : "https://money.rediff.com/companies/Hero-Motocorp-Ltd/10540005", "sector":"Auto"},
+ 
+{"name": "BRITANNIA", "url" : "https://money.rediff.com/companies/Britannia-Industries-Ltd/11120001", "sector":"FMCG"},
+ 
+{"name": "M&M", "url" :
+ "https://money.rediff.com/companies/Mahindra-Mahindra-Ltd/10520003", "sector":"Auto"},
+ 
+{"name": "ASIANPAINT", "url" : "https://money.rediff.com/companies/Asian-Paints-Ltd/11580001", "sector":"Chemical"}, 
+
+
+{"name": "HDFCBANK", "url" : 
+"https://money.rediff.com/companies/Hdfc-Bank-Ltd/14030055", "sector":"Bank"},
+ 
+{"name": "GRASIM", "url" : "https://money.rediff.com/companies/Grasim-Industries-Ltd/17010006", "sector":"Cement"},
+ 
+{"name": "SBIN", "url" : 
+"https://money.rediff.com/companies/State-Bank-Of-India/14030001", "sector":"Bank"}, 
+
+
+{"name": "HDFCLIFE", "url" : "https://money.rediff.com/companies/Hdfc-Life-Insurance-Company-Ltd/14020008", "sector":"Insurance"},
+ 
+{"name": "LT", "url" :
+ "https://money.rediff.com/companies/Larsen-Toubro-Ltd/17010013", "sector":"Engineering"}, 
+
+
+{"name": "INDUSINDBK", "url" : "https://money.rediff.com/companies/Indusind-Bank-Ltd/14030054", "sector":"Bank"},
+ 
+{"name": "BPCL", "url" : "https://money.rediff.com/companies/Bharat-Petroleum-Corporation-Ltd/12140020", "sector":"Oil"}, 
+
+
+{"name": "RELIANCE", "url" : "https://money.rediff.com/companies/Reliance-Industries-Ltd/12150008", "sector":"Diversified"},
+ 
+{"name": "IOC", "url" : "https://money.rediff.com/companies/Indian-Oil-Corporation-Ltd/12140022", "sector":"Oil"},
+ 
+{"name": "EICHERMOT", "url" : "https://money.rediff.com/companies/Eicher-Motors-Ltd/10510004", "sector":"Auto"}, 
+{"name": "COALINDIA", "url" : 
+"https://money.rediff.com/companies/Coal-India-Ltd/15110007", "sector":"Mining"}, 
+
+
+{"name": "HINDALCO", "url" : "https://money.rediff.com/companies/Hindalco-Industries-Ltd/15040001", "sector":"Metal"}, 
+
+
+{"name": "ICICIBANK", "url" : 
+"https://money.rediff.com/companies/Icici-Bank-Ltd/14030056", "sector":"Bank"}, 
+
+
+{"name": "AXISBANK", "url" :
+ "https://money.rediff.com/companies/Axis-Bank-Ltd/14030047", "sector":"Bank"}, 
+
+
+{"name": "NTPC", 
+"url" : "https://money.rediff.com/companies/Ntpc-Ltd/15130025", "sector":"Energy"}, 
+
+
+{"name": "ULTRACEMCO", "url" : "https://money.rediff.com/companies/Ultratech-Cement-Ltd/11520068", "sector":"Cement"}, 
+
+
+{"name": "TATASTEEL", "url" :
+ "https://money.rediff.com/companies/Tata-Steel-Ltd/15510001", "sector":"Metal"}, 
+
+
+{"name": "UPL", "url" :
+ "https://money.rediff.com/companies/Upl-Ltd/12060021", "sector":"Chemical"}, 
+
+
+{"name": "BAJFINANCE", "url" : "https://money.rediff.com/companies/Bajaj-Finance-Ltd/14060023", "sector":"Finance"}]

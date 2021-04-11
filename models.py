@@ -29,3 +29,19 @@ class Holdings(db.Model):
         self.buyingprice = buyingprice
         self.date = date
         self.panid = panid
+
+class Watchlist(db.Model):
+    stockname = db.Column(db.String(10),primary_key=True)
+    panid = db.Column(db.String(10))
+    sector = db.Column(db.String(20))
+    cmp = db.Column(db.Float)
+    marketcap = db.Column(db.Float)
+    peratio = db.Column(db.Float)
+    def __init__(self, sector, stockname, cmp, marketcap, peratio,panid):
+        self.stockname = stockname
+        self.panid = panid
+        self.cmp = cmp
+        self.marketcap = marketcap
+        self.peratio = peratio
+        self.sector = sector
+        

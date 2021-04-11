@@ -5,6 +5,7 @@ from datetime import datetime, date
 from flask import Flask, redirect, url_for, render_template
 from forms import LoginForm, RegForm, holdingForm, watchlistForm
 from flask_migrate import Migrate
+from stockprice import companydetails
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "myproj"
@@ -100,11 +101,31 @@ def news():
 
 
 @app.route("/table.html", methods=["GET", "POST"])
-def WatchList():
-    if session.get("logged_in") is None or session["logged_in"] == False:
+def watchlist():
+    if session.get("logged_in") is None or session.get("panid") is None or session["logged_in"] == False:
         return redirect(url_for("login"))
+    if request.method == "POST":
+        d = companydetails(request.form["stockname"].upper())
+        if len(d) is 0 :
+            flash("Entered Details could not be fetched !")
+            return redirect(url_for("watchlist"))
+        data = Watchlist(
+            stockname=request.form["stockname"].upper(),
+            cmp = d.get('cmp',0.0),
+            marketcap= d.get('marketcap',0.0),
+            sector = d.get('sector','none'),
+            peratio = d.get('pe',0.0),
+            panid=session['panid']
+        )
+        db.session.add(data)
+        db.session.commit()
+        flash("Record was successfully added")
+        return redirect(url_for("watchlist"))
+    records = Watchlist.query.filter_by(
+            panid = session['panid']
+        ).all()
     form = watchlistForm()
-    return render_template("table.html", form=form)
+    return render_template("table.html", form=form,data=records)
 
 
 if __name__ == "__main__":

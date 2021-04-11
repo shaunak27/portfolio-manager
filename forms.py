@@ -35,5 +35,5 @@ class holdingForm(FlaskForm):
 
 
 class watchlistForm(FlaskForm):
-    stockwatch = StringField("Stock Name", validators=[DataRequired()])
+    stockname = StringField("Stock Name", validators=[DataRequired()])
     submit = SubmitField("Register")
