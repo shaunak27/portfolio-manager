@@ -146,30 +146,42 @@ def watchlist():
     if session.get("logged_in") is None or session.get("panid") is None or session["logged_in"] == False:
         return redirect(url_for("login"))
     if request.method == "POST":
-        d = companydetails(request.form["stockname"].upper())
-        entries = Watchlist.query.filter_by(
-            panid = session['panid']
-        ).all()
-        for e in entries:
-            if e.stockname == request.form["stockname"].upper():
-                d = {}
-                break
+        if request.form['btn'] == 'submit':
+            d = companydetails(request.form["stockname"].upper())
+            entries = Watchlist.query.filter_by(
+                panid = session['panid']
+            ).all()
+            for e in entries:
+                if e.stockname == request.form["stockname"].upper():
+                    d = {}
+                    break
 
-        if len(d) is 0 :
-            flash("Entered Details could not be fetched !")
+            if len(d) is 0 :
+                flash("Entered Details could not be fetched !")
+                return redirect(url_for("watchlist"))
+            data = Watchlist(
+                stockname=request.form["stockname"].upper(),
+                cmp = d.get('cmp',0.0),
+                marketcap= d.get('marketcap',0.0),
+                sector = d.get('sector','none'),
+                peratio = d.get('pe',0.0),
+                panid=session['panid']
+            )
+            db.session.add(data)
+            db.session.commit()
+            flash("Record was successfully added")
             return redirect(url_for("watchlist"))
-        data = Watchlist(
-            stockname=request.form["stockname"].upper(),
-            cmp = d.get('cmp',0.0),
-            marketcap= d.get('marketcap',0.0),
-            sector = d.get('sector','none'),
-            peratio = d.get('pe',0.0),
-            panid=session['panid']
-        )
-        db.session.add(data)
-        db.session.commit()
-        flash("Record was successfully added")
-        return redirect(url_for("watchlist"))
+        elif request.form['btn'] == 'delete':
+            rec = Watchlist.query.filter_by(
+            stockname = request.form['stockname'].upper()  
+            ).first()
+            if rec is None:
+                flash("Entered Details could not be fetched !")
+                return redirect(url_for("watchlist"))
+            db.session.delete(rec)
+            db.session.commit()
+            flash("Record was successfully deleted")
+            return redirect(url_for("watchlist"))
     records = Watchlist.query.filter_by(
             panid = session['panid']
         ).all()
