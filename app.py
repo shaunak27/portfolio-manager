@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request, flash, session
-from forms import LoginForm, RegForm, holdingForm, watchlistForm
+from forms import LoginForm, RegForm, deleteholdingForm, holdingForm, watchlistForm
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 from flask import Flask, redirect, url_for, render_template
@@ -37,23 +37,64 @@ def dashboard():
     if session.get("logged_in") is None or session.get("panid") is None or session["logged_in"] == False:
         return redirect(url_for("login"))
     if request.method == "POST":
-        data = Holdings(
-            orderid=request.form["orderid"],
-            stockname=request.form["stockname"],
-            quantity=request.form["quantity"],
-            date=datetime.strptime(request.form["date"], "%d/%m/%Y").date(),
-            buyingprice=request.form["buyingprice"],
-            panid=session['panid']
-        )
-        db.session.add(data)
-        db.session.commit()
-        flash("Record was successfully added")
-        return redirect(url_for("dashboard"))
+        if request.form['btn'] == 'submit':
+            d = companydetails(request.form["stockname"].upper())
+            if len(d) is 0 :
+                flash("Entered Details could not be fetched !")
+                return redirect(url_for("dashboard"))
+            data = Holdings(
+                orderid=request.form["orderid"],
+                stockname=request.form["stockname"],
+                quantity=request.form["quantity"],
+                date=datetime.strptime(request.form["date"], "%d/%m/%Y").date(),
+                buyingprice=request.form["buyingprice"],
+                panid=session['panid'],
+                cmp = d.get('cmp',0.0)
+            )
+            db.session.add(data)
+            db.session.commit()
+            flash("Record was successfully added")
+            return redirect(url_for("dashboard"))
+
+        elif request.form['btn'] == 'edit':
+            d = companydetails(request.form["stockname"].upper())
+            if len(d) is 0 :
+                flash("Entered Details could not be fetched !")
+                return redirect(url_for("dashboard"))
+            rec = Holdings.query.filter_by(
+            orderid = request.form['orderid']  
+            ).first()
+            if rec is None:
+                flash("Entered Details could not be fetched !")
+                return redirect(url_for("dashboard"))
+            rec.stockname=request.form["stockname"]
+            rec.quantity=request.form["quantity"]
+            rec.date=datetime.strptime(request.form["date"], "%d/%m/%Y").date()
+            rec.buyingprice=request.form["buyingprice"]
+            rec.cmp = d.get('cmp',0.0)
+            db.session.add(rec)
+            db.session.commit()
+            flash("Record was successfully updated")
+            return redirect(url_for("dashboard"))
+
+        elif request.form['btn'] == 'delete' :
+            rec = Holdings.query.filter_by(
+            orderid = request.form['orderid']  
+            ).first()
+            if rec is None:
+                flash("Entered Details could not be fetched !")
+                return redirect(url_for("dashboard"))
+            db.session.delete(rec)
+            db.session.commit()
+            flash("Record was successfully deleted")
+            return redirect(url_for("dashboard"))
+
     records = Holdings.query.filter_by(
             panid = session['panid']
         ).all()
     form = holdingForm()
-    return render_template("index.html", form=form,data=records)
+    form2 = deleteholdingForm()
+    return render_template("index.html", form=form,data=records,form2 = form2)
 
 
 @app.route("/")
@@ -106,6 +147,14 @@ def watchlist():
         return redirect(url_for("login"))
     if request.method == "POST":
         d = companydetails(request.form["stockname"].upper())
+        entries = Watchlist.query.filter_by(
+            panid = session['panid']
+        ).all()
+        for e in entries:
+            if e.stockname == request.form["stockname"].upper():
+                d = {}
+                break
+
         if len(d) is 0 :
             flash("Entered Details could not be fetched !")
             return redirect(url_for("watchlist"))

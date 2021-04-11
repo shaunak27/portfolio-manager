@@ -33,6 +33,9 @@ class holdingForm(FlaskForm):
     quantity = IntegerField("Quantity", validators=[DataRequired()])
     submit = SubmitField("Register")
 
+class deleteholdingForm(FlaskForm):
+    orderid = IntegerField("Order Id.", validators=[DataRequired()])
+    submit = SubmitField("Register")
 
 class watchlistForm(FlaskForm):
     stockname = StringField("Stock Name", validators=[DataRequired()])

@@ -22,14 +22,15 @@ class Holdings(db.Model):
     date = db.Column(db.Date)
     buyingprice = db.Column(db.Integer)
     panid = db.Column(db.String(10))
-    def __init__(self, orderid, stockname, quantity, buyingprice, date,panid):
+    cmp = db.Column(db.Float)
+    def __init__(self, orderid, stockname, quantity, buyingprice, date,panid,cmp):
         self.orderid = orderid
         self.stockname = stockname
         self.quantity = quantity
         self.buyingprice = buyingprice
         self.date = date
         self.panid = panid
-
+        self.cmp = cmp
 class Watchlist(db.Model):
     stockname = db.Column(db.String(10),primary_key=True)
     panid = db.Column(db.String(10))
@@ -44,4 +45,3 @@ class Watchlist(db.Model):
         self.marketcap = marketcap
         self.peratio = peratio
         self.sector = sector
-        
