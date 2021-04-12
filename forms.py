@@ -24,6 +24,11 @@ class LoginForm(FlaskForm):
     panid = StringField("Pan Id.", validators=[DataRequired()])
     submit = SubmitField("Login")
 
+class LoginAdminForm(FlaskForm):
+    loginid = PasswordField("Login ID", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired()])
+    password = PasswordField("Password")
+    submit = SubmitField("Login")
 
 class holdingForm(FlaskForm):
     orderid = IntegerField("Order Id.", validators=[DataRequired()])
