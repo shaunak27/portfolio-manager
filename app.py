@@ -43,8 +43,7 @@ def login_Admin():
         if admin:
             session["logged_in"] = True
             session["loginid"] = admin.loginid
-            session["email"] = admin.email
-            session["password"] = admin.password
+            
             return redirect(url_for("dashboard"))
         else:
             flash("Login details are Incorrect !")
