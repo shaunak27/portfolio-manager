@@ -19,7 +19,6 @@ class Admin(db.Model):
     email = db.Column(db.String(30))
     password = db.Column(db.String(15))
     
-
     def __init__(self, loginid, email, password):
         self.loginid = loginid
         self.email = email

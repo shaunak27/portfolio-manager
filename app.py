@@ -140,7 +140,6 @@ def charts():
 def news():
     return render_template("card.html")
 
-
 @app.route("/table.html", methods=["GET", "POST"])
 def watchlist():
     if session.get("logged_in") is None or session.get("panid") is None or session["logged_in"] == False:
