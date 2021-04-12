@@ -14,6 +14,16 @@ class Investor(db.Model):
         self.email = email
         self.password = password
 
+class Admin(db.Model):
+    loginid = db.Column(db.String(20), primary_key=True)
+    email = db.Column(db.String(30))
+    password = db.Column(db.String(15))
+    
+
+    def __init__(self, loginid, email, password):
+        self.loginid = loginid
+        self.email = email
+        self.password = password
 
 class Holdings(db.Model):
     orderid = db.Column(db.Integer, primary_key=True)
