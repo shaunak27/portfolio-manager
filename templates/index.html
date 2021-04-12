@@ -431,25 +431,34 @@
                                     
                                     {% endfor %}
                                     <script>
-                                    google.charts.load("current", {packages:["corechart"]});
-                                    google.charts.setOnLoadCallback(drawChart);
-                                    
-                                    function drawChart() {                                                                                            
                                     j=0;
                                     for(k = 0 ; k < array.length ; k++){
                                         array2[k] = (array[j]/totalCap)*100;
                                         j++;
+                                        
                                     }
+                                    
+                                    var mylist = [];
+                                    mylist.push(['Stockname', 'Percentage']);
+                                    var z = 0;
+                                    </script>
+                                    {% for item in data %}
+                                    <script>
+                                        mylist.push(['{{item.stockname}}',array2[z++]])
+                                        
+                                     </script>
+                                    
+                                    {% endfor %}
+
+                                    <script>
+                                    google.charts.load("current", {packages:["corechart"]});
+                                    google.charts.setOnLoadCallback(drawChart);
+                                    
+                                    function drawChart() {                                                                                            
+                                    
                                     var tot = totalCap.toString();
                                     //document.write(data[0]);
-                                    var data = google.visualization.arrayToDataTable([
-                                      ['Stockname', 'Hours per Day'],
-                                      ['CIPLA',     array2[0]],
-                                      ['TITAN',      array2[1]],
-                                      ['BAJFINANCE',  array2[2]],
-                                      //['Watch TV', 2],
-                                      //['Sleep',    7]
-                                    ]);
+                                    var data = google.visualization.arrayToDataTable(mylist);
 
                                     var options = {
                                       pieHole: 0.4,
