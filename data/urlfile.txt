@@ -6,7 +6,7 @@
 {"name":"HINDUNILVR","url":
 "https://money.rediff.com/companies/Hindustan-Unilever-Ltd/12520002", "sector":"Diversified"},
  
-{"name":"TECHM ", "url" : "https://money.rediff.com/companies/Tech-Mahindra-Ltd/10520003", "sector":"Technology"},
+{"name":"TECHM", "url" : "https://money.rediff.com/companies/Tech-Mahindra-Ltd/10520003", "sector":"Technology"},
  
 {"name": "TATACONSUM", "url" : "https://money.rediff.com/companies/Tata-Consumer-Products-Ltd/12660006", "sector":"Tea and Coffee"},
  
