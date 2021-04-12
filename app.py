@@ -3,7 +3,7 @@ from forms import LoginForm, RegForm, deleteholdingForm, holdingForm, watchlistF
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 from flask import Flask, redirect, url_for, render_template
-from forms import LoginForm, RegForm, holdingForm, watchlistForm
+from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm
 from flask_migrate import Migrate
 from stockprice import companydetails
 
@@ -31,6 +31,26 @@ def login():
     form = LoginForm()
     return render_template("login.html", form=form)
 
+@app.route("/loginAdmin.html", methods=["GET", "POST"])
+def login_Admin():
+
+    if request.method == "POST":
+        admin = Admin.query.filter_by(
+            loginid=request.form["loginid"], email=request.form["email"],
+            password=request.form["password"]
+        ).first()
+
+        if admin:
+            session["logged_in"] = True
+            session["loginid"] = admin.loginid
+            session["email"] = admin.email
+            session["password"] = admin.password
+            return redirect(url_for("dashboard"))
+        else:
+            flash("Login details are Incorrect !")
+            return redirect(url_for("login_Admin"))
+    form = LoginAdminForm()
+    return render_template("loginAdmin.html", form=form)
 
 @app.route("/index.html", methods=["GET", "POST"])
 def dashboard():
@@ -62,7 +82,7 @@ def dashboard():
                 flash("Entered Details could not be fetched !")
                 return redirect(url_for("dashboard"))
             rec = Holdings.query.filter_by(
-            orderid = request.form['orderid']  
+            orderid = request.form['orderid']
             ).first()
             if rec is None:
                 flash("Entered Details could not be fetched !")
@@ -79,7 +99,7 @@ def dashboard():
 
         elif request.form['btn'] == 'delete' :
             rec = Holdings.query.filter_by(
-            orderid = request.form['orderid']  
+            orderid = request.form['orderid']
             ).first()
             if rec is None:
                 flash("Entered Details could not be fetched !")
@@ -172,7 +192,7 @@ def watchlist():
             return redirect(url_for("watchlist"))
         elif request.form['btn'] == 'delete':
             rec = Watchlist.query.filter_by(
-            stockname = request.form['stockname'].upper()  
+            stockname = request.form['stockname'].upper()
             ).first()
             if rec is None:
                 flash("Entered Details could not be fetched !")
