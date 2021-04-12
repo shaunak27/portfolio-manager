@@ -412,13 +412,34 @@
                                   google.charts.load("current", {packages:["corechart"]});
                                   google.charts.setOnLoadCallback(drawChart);
                                   function drawChart() {
+                                    var i;
+                                    var k;
+                                    var j = 0;
+                                    var totalCap =0;
+                                    var array = [];
+                                    var array2 =[];
+                                    {% for item in data %}
+                                        totalCap = totalCap + {{item.buyingprice}} * {{item.quantity}}
+                                    {% endfor %}
+
+                                    {% for item in data %}
+                                        array[j++] = {{item.buyingprice}} * {{item.quantity}}
+                                    {% endfor %}
+                                    j=0;
+                                    for(k = 0 ; k < array.length ; k++){
+                                        array2[k] = (array[j]/totalCap)*100;
+                                        j++;
+                                    }
+
+                                    var tot = totalCap.toString();
+                                    //document.write(data[0]);
                                     var data = google.visualization.arrayToDataTable([
                                       ['Task', 'Hours per Day'],
-                                      ['Work',     11],
-                                      ['Eat',      2],
-                                      ['Commute',  2],
-                                      ['Watch TV', 2],
-                                      ['Sleep',    7]
+                                      [array2[2].toString(),     array2[0]],
+                                      ['Eat',      array2[1]],
+                                      ['Commute',  array2[2]],
+                                      //['Watch TV', 2],
+                                      //['Sleep',    7]
                                     ]);
 
                                     var options = {
