@@ -263,14 +263,14 @@
                             <div class="col-md-12">
                                 <div class="overview-wrap">
                                     <h2 class="title-1">Your Holdings</h2>
-                                    
+
                                 </div>
                             </div>
                         </div>
 
                     </div>
                     <br>
-                        
+
                         <div class = "row">
                             <div class="col-lg-4" >
                                 <button class="au-btn au-btn-icon au-btn--blue" onclick="openForm()">
@@ -280,19 +280,19 @@
                                               <h2>Enter Details</h2>
                                               <label><b>{{form.orderid.label}}</b></label>
                                               <p>{{form.orderid}}</p>
-    
+
                                               <label><b>{{form.stockname.label}}</b></label>
                                               <p>{{form.stockname}}</p>
-    
+
                                               <label><b>{{form.date.label}}</b></label>
                                               <p>{{form.date}}</p>
-    
+
                                               <label><b>{{form.buyingprice.label}}</b></label>
                                               <p>{{form.buyingprice}}</p>
-    
+
                                               <label><b>{{form.quantity.label}}</b></label>
                                               <p>{{form.quantity}}</p>
-    
+
                                               <button type="submit" class="btn" name="btn" value="submit">Submit</button>
                                               <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                                           </form>
@@ -301,13 +301,13 @@
                                           function openForm() {
                                           document.getElementById("myForm").style.display = "block";
                                           }
-    
+
                                           function closeForm() {
                                           document.getElementById("myForm").style.display = "none";
                                           }
                                       </script>
                                 </div>
-                                
+
                                     <div class="col-lg-4" >
                                         <button class="au-btn au-btn-icon au-btn--green" onclick="openForm1()">
                                             <i class="zmdi zmdi-plus"></i>Edit position</button>
@@ -316,19 +316,19 @@
                                                       <h2>Enter Details</h2>
                                                       <label><b>{{form.orderid.label}}</b></label>
                                                       <p>{{form.orderid}}</p>
-            
+
                                                       <label><b>{{form.stockname.label}}</b></label>
                                                       <p>{{form.stockname}}</p>
-            
+
                                                       <label><b>{{form.date.label}}</b></label>
                                                       <p>{{form.date}}</p>
-            
+
                                                       <label><b>{{form.buyingprice.label}}</b></label>
                                                       <p>{{form.buyingprice}}</p>
-            
+
                                                       <label><b>{{form.quantity.label}}</b></label>
                                                       <p>{{form.quantity}}</p>
-            
+
                                                       <button type="submit" class="btn" name="btn" value="edit">Confirm</button>
                                                       <button type="button" class="btn cancel" onclick="closeForm1()">Close</button>
                                                   </form>
@@ -337,7 +337,7 @@
                                                   function openForm1() {
                                                   document.getElementById("myForm1").style.display = "block";
                                                   }
-            
+
                                                   function closeForm1() {
                                                   document.getElementById("myForm1").style.display = "none";
                                                   }
@@ -350,7 +350,7 @@
                                                       <form class="form-container" method="post">
                                                           <h2>Enter Details</h2>
                                                           <label><b>{{form2.orderid.label}}</b></label>
-                                                          <p>{{form2.orderid}}</p>                                                                        
+                                                          <p>{{form2.orderid}}</p>
                                                           <button type="submit" class="btn" name="btn" value="delete">Delete</button>
                                                           <button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
                                                       </form>
@@ -359,7 +359,7 @@
                                                       function openForm2() {
                                                       document.getElementById("myForm2").style.display = "block";
                                                       }
-                
+
                                                       function closeForm2() {
                                                       document.getElementById("myForm2").style.display = "none";
                                                       }
@@ -398,18 +398,42 @@
                                     </table>
                                 </div>
                             </div>
-                        
-                        
+
+
                          </div>
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="au-card m-b-30">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Pie Chart</h3>
-                                        <canvas id="pieChart"></canvas>
-                                    </div>
-                                </div>
+                              <html>
+                              <head>
+                                <h2>Hodings chart</h2>
+                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <script type="text/javascript">
+                                  google.charts.load("current", {packages:["corechart"]});
+                                  google.charts.setOnLoadCallback(drawChart);
+                                  function drawChart() {
+                                    var data = google.visualization.arrayToDataTable([
+                                      ['Task', 'Hours per Day'],
+                                      ['Work',     11],
+                                      ['Eat',      2],
+                                      ['Commute',  2],
+                                      ['Watch TV', 2],
+                                      ['Sleep',    7]
+                                    ]);
+
+                                    var options = {
+                                      pieHole: 0.4,
+                                    };
+
+                                    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                                    chart.draw(data, options);
+                                  }
+                                </script>
+                              </head>
+                              <body>
+                                <div id="donutchart" style="width: 900px; height: 500px;"></div>
+                              </body>
+                              </html>
                             </div>
 
                         </div>
@@ -421,7 +445,7 @@
             <!-- END PAGE CONTAINER-->
     </div>
 
-    
+
 
     <!-- Jquery JS-->
     <script src="static/vendor/jquery-3.2.1.min.js"></script>
