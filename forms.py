@@ -30,6 +30,10 @@ class LoginAdminForm(FlaskForm):
     password = PasswordField("Password")
     submit = SubmitField("Login")
 
+class MLForm(FlaskForm):
+    stockname = StringField("Stock Name", validators=[DataRequired()])
+    submit = SubmitField("Generate Predictions")
+
 class holdingForm(FlaskForm):
     orderid = IntegerField("Order Id.", validators=[DataRequired()])
     stockname = StringField("Stock Name", validators=[DataRequired()])

@@ -3,7 +3,7 @@ from forms import LoginForm, RegForm, deleteholdingForm, holdingForm, watchlistF
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 from flask import Flask, redirect, url_for, render_template
-from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm
+from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm, MLForm
 from flask_migrate import Migrate
 from stockprice import companydetails
 
@@ -49,6 +49,22 @@ def login_Admin():
             flash("Login details are Incorrect !")
             return redirect(url_for("login_Admin"))
     form = LoginAdminForm()
+    return render_template("loginAdmin.html", form=form)
+
+@app.route("/enterml.html", methods=["GET", "POST"])
+def enterml():
+
+    if request.method == "POST":
+        data = Holdings.query.filter_by(
+            stockname=request.form["stockname"]         
+        ).first()
+
+        if data:
+            return redirect(url_for("chart"))
+        else:
+            flash("Entered company in not a part of your holdings !")
+            return redirect(url_for("dashboard"))
+    form = MLForm()
     return render_template("loginAdmin.html", form=form)
 
 @app.route("/index.html", methods=["GET", "POST"])
