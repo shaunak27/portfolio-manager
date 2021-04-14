@@ -3,7 +3,7 @@ from forms import LoginForm, RegForm, deleteholdingForm, holdingForm, watchlistF
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 from flask import Flask, redirect, url_for, render_template
-from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm
+from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm, deleteUserForm, UserEditForm
 from flask_migrate import Migrate
 from stockprice import companydetails
 
@@ -44,12 +44,48 @@ def login_Admin():
             session["logged_in"] = True
             session["loginid"] = admin.loginid
             
-            return redirect(url_for("dashboard"))
+            return redirect(url_for("dashboard_Admin"))
         else:
             flash("Login details are Incorrect !")
             return redirect(url_for("login_Admin"))
     form = LoginAdminForm()
     return render_template("loginAdmin.html", form=form)
+
+@app.route("/indexAdmin.html" ,methods=["GET", "POST"])
+def dashboard_Admin():
+    users= Investor.query.all()
+    if request.method == "POST":
+        if request.form['btn'] == 'submit' :
+                deleteuser = Investor.query.filter_by(
+                    panid = request.form['panid']
+                ).first()
+                if deleteuser is None:
+                    flash("Entered Details could not be fetched !")
+                    return redirect(url_for("dashboard_Admin"))
+                db.session.delete(deleteuser)
+                db.session.commit()
+                flash("Record was successfully deleted")
+                return redirect(url_for("dashboard_Admin"))
+        elif request.form['btn'] == 'edit' :
+         
+            edituser = Investor.query.filter_by(
+                panid = request.form['panid']
+            ).first()
+            if edituser is None:
+                flash("Entered Details could not be fetched !")
+                return redirect(url_for("dashboard_Admin"))
+            edituser.username=request.form["username"]
+            edituser.password=request.form["password"]
+            edituser.email=request.form["email"]
+            
+            db.session.add(edituser)
+            db.session.commit()
+            flash("Record was successfully updated")
+            return redirect(url_for("dashboard_Admin"))
+                  
+    form = deleteUserForm()
+    form1 = UserEditForm()
+    return render_template("indexAdmin.html",users = users,form=form,form1=form1)
 
 @app.route("/index.html", methods=["GET", "POST"])
 def dashboard():

@@ -45,3 +45,15 @@ class deleteholdingForm(FlaskForm):
 class watchlistForm(FlaskForm):
     stockname = StringField("Stock Name", validators=[DataRequired()])
     submit = SubmitField("Register")
+
+class deleteUserForm(FlaskForm):
+    panid = StringField("Pan Id.", validators=[DataRequired()])
+    submit = SubmitField("Register")    
+
+
+class UserEditForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired()])
+    panid = StringField("Pan Id.", validators=[DataRequired()])
+    submit = SubmitField("Register")    
