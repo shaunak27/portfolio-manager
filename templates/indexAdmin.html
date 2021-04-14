@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Shaunak">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Dashboard</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="static/css/font-face.css" rel="stylesheet" media="all">
+    <link href="static/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="static/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="static/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="static/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="static/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="static/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="static/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="static/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="static/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="static/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="static/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="static/css/theme.css" rel="stylesheet" media="all">
+    <style>
+  	body {font-family: Arial, Helvetica, sans-serif;}
+  	* {box-sizing: border-box;}
+    .form-popup {
+            display: none;
+            position: sticky;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+            /*overflow:scroll;*/
+    	}
+
+    	/* Add styles to the form container */
+    	.form-container {
+    	  width: 100%;
+    	  padding: 10px;
+    	  background-color: rgb(226, 211, 211);
+          /*overflow:scroll;*/
+    	}
+
+    	/* Full-width input fields */
+    	.form-container input[type=text], .form-container input[type=password] {
+    	  width: 100%;
+    	  padding: 15px;
+    	  margin: 5px 0 22px 0;
+    	  border: none;
+    	  background: #f1f1f1;
+    	}
+
+    	/* When the inputs get focus, do something */
+    	.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    	  background-color: #ddd;
+    	  outline: none;
+    	}
+
+    	/* Set a style for the submit/login button */
+    	.form-container .btn {
+    	  background-color: #4CAF50;
+    	  color: white;
+    	  padding: 16px 20px;
+    	  border: none;
+    	  cursor: pointer;
+    	  width: 100%;
+    	  margin-bottom:10px;
+    	  opacity: 0.8;
+    	}
+
+    	/* Add a red background color to the cancel button */
+    	.form-container .cancel {
+    	  background-color: red;
+    	}
+
+    	/* Add some hover effects to buttons */
+    	.form-container .btn:hover, .open-button:hover {
+    	  opacity: 1;
+    	}
+  	</style>
+</head>
+
+<body class="animsition">
+    {% for mesg in get_flashed_messages() %}
+    <script type="text/javascript">
+        var msg = '{{ mesg }}'
+    alert(msg)
+    </script>
+    {% endfor %}
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        <header class="header-mobile d-block d-lg-none">
+            <div class="header-mobile__bar">
+                <div class="container-fluid">
+                    <div class="header-mobile-inner">
+                        <a class="logo" href="index.html">
+                            <img src="static/images/icon/logo.png" alt="TradeCast" />
+                        </a>
+                        <button class="hamburger hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER MOBILE-->
+
+        <!-- MENU SIDEBAR-->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="#">
+                    <img src="static/images/icon/logo.png" alt="TradeCast" />
+                </a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+
+                        </li>
+                        
+
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+            <!-- HEADER DESKTOP-->
+            <header class="header-desktop">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="header-wrap">
+
+                            <h2 class="title-1">Welcome Admin!</h2>
+                            <div class="header-button">
+                               
+                                <div class="account-wrap">
+                                    <div class="account-item clearfix js-item-menu">
+                                        <div class="image">
+                                            <img src="static/images/icon/avatar-01.jpg" alt="John Doe" />
+                                        </div>
+                                        <div class="content">
+                                            <a class="js-acc-btn" href="#">{{session.username}}</a>
+                                        </div>
+                                        <div class="account-dropdown js-dropdown">
+                                            <div class="info clearfix">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <img src="static/images/icon/avatar-01.jpg" alt="John Doe" />
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h5 class="name">
+                                                        <a href="#">{{session.username}}</a>
+                                                    </h5>
+                                                    <span class="email">example@gmail.com</span>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                </div>
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__footer">
+                                                <a href="logout">
+                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="overview-wrap">
+                                    <h2 class="title-1">Users List</h2>
+
+                                </div>
+                            </div> 
+                        </div>       
+                        <br>
+                        <div class = "row">
+                            <div class="col-lg-4" >
+                                <button class="au-btn au-btn-icon au-btn--blue" onclick="openForm()">
+                                    <i class="zmdi zmdi-plus"></i>Remove User</button>
+                                      <div class="form-popup" id="myForm">
+                                          <form class="form-container" method="post">
+                                              
+                                              <label><b>{{form.panid.label}}</b></label>
+                                              <p>{{form.panid}}</p>
+
+                                      
+
+                                              <button type="submit" class="btn" name="btn" value="submit">Submit</button>
+                                              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                          </form>
+                                        </div>
+                                      <script>
+                                          function openForm() {
+                                          document.getElementById("myForm").style.display = "block";
+                                          }
+
+                                          function closeForm() {
+                                          document.getElementById("myForm").style.display = "none";
+                                          }
+                                      </script>
+                            </div>
+                            <div class="col-lg-4" >
+                                <button class="au-btn au-btn-icon au-btn--green" onclick="openForm1()">
+                                    <i class="zmdi zmdi-plus"></i>Edit User</button>
+                                      <div class="form-popup" id="myForm1">
+                                          <form class="form-container" method="post">
+                                              <h2>Enter Details</h2>
+                                              <label><b>{{form1.panid.label}}</b></label>
+                                              <p>{{form1.panid}}</p>
+
+                                              <label><b>{{form1.username.label}}</b></label>
+                                              <p>{{form1.username}}</p>
+                                              
+                                              <label><b>{{form1.email.label}}</b></label>
+                                              <p>{{form1.email}}</p>
+                                             
+                                              <label><b>{{form1.password.label}}</b></label>
+                                              <p>{{form1.password}}</p>
+
+                                            
+                                              <button type="submit" class="btn" name="btn" value="edit">Confirm</button>
+                                              <button type="button" class="btn cancel" onclick="closeForm1()">Close</button>
+                                          </form>
+                                        </div>
+                                      <script>
+                                          function openForm1() {
+                                          document.getElementById("myForm1").style.display = "block";
+                                          }
+
+                                          function closeForm1() {
+                                          document.getElementById("myForm1").style.display = "none";
+                                          }
+                                      </script>
+                                </div>
+                        </div>              
+                            
+                        
+                    </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!--<h2 class="title-1 m-b-25">Earnings By Items</h2>-->
+                            <div class="table-responsive table--no-card m-b-40">
+                                <table class="table table-borderless table-striped table-earning">
+                                    <thead>
+                                        <tr>
+                                            <th>Pan ID</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in users %}
+                                        <tr>
+                                            <td>{{item.panid}}</td>
+                                            <td>{{item.username}}</td>
+                                            <td>{{item.email}}</td>
+                                            <td>{{item.password}}</td>
+                                        
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                     </div>
+                       
+
+                </div>
+            </div>
+        </div>
+            <!-- END MAIN CONTENT-->
+            <!-- END PAGE CONTAINER-->
+    </div>
+
+
+
+    <!-- Jquery JS-->
+    <script src="static/vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="static/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="static/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="static/vendor/slick/slick.min.js">
+    </script>
+    <script src="static/vendor/wow/wow.min.js"></script>
+    <script src="static/vendor/animsition/animsition.min.js"></script>
+    <script src="static/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="static/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="static/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="static/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="static/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="static/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="static/vendor/select2/select2.min.js">
+    </script>
+
+    <!-- Main JS-->
+    <script src="static/js/main.js"></script>
+
+</body>
+
+</html>
+<!-- end document-->
