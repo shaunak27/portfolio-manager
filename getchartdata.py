@@ -24,7 +24,7 @@ def getdata(arg,years):
     with open(f'buff{arg.lower()}.csv','w') as f:
         f.write(r.content.decode())
     data = pd.read_csv(f'./buff{arg.lower()}.csv')
-
+    data = data.dropna(axis=0)
     data["Date"] = data["Date"].astype(str)
     mylist = data.loc[:,['Date','Low','Open','Close','High']]
     data_list = mylist.values.tolist()

@@ -256,9 +256,10 @@
                                     var i=0,j=0;
                                     var pricerow =[]
                                 </script>
-                                {% for item in pricedata %}
+                                {% for item in mystocks %}
                                     <script>
                                         myListitem = []
+                                        
                                     </script>
                                     {% for prices in item%}
                                         <script>
@@ -271,7 +272,7 @@
                                         {% endfor %}
                                             <script>
                                                 myListitem.push(pricerow);
-                                                console.log(myListitem);
+                                                
                                             </script>
                                     {% endfor %}
                                     <script>
@@ -283,10 +284,23 @@
                                 <script type="text/javascript">
                                   google.charts.load('current', {'packages':['corechart']});
                                   google.charts.setOnLoadCallback(drawChart);
+                                  for(i = 0; i < mylist[0].length; i++)
+                                {
                                     
+                                    mylist[0][i][1] = parseFloat(mylist[0][i][1])
+                                    
+                                    mylist[0][i][2] = parseFloat(mylist[0][i][2])
+                                    mylist[0][i][3] = parseFloat(mylist[0][i][3])
+                                    mylist[0][i][4] = parseFloat(mylist[0][i][4])
+                                    
+                                }
                               function drawChart() {
-                                  
-                                var data = google.visualization.arrayToDataTable(mylist,true);
+                                
+                                
+                                console.log(mylist[0]);
+                                var data = google.visualization.arrayToDataTable(mylist[0], true);
+                                
+        
                             
                                 var options = {
                                   legend:'none'
