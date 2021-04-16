@@ -24,8 +24,14 @@ def getdata(arg,years):
     with open(f'buff{arg.lower()}.csv','w') as f:
         f.write(r.content.decode())
     data = pd.read_csv('./bufftata.csv') 
-    data.head(5)
     data = data[["Date","Close"]] # select Date and Price# Rename the features: These names are NEEDED for the model fitting
     data = data.rename(columns = {"Date":"ds","Close":"y"})
     m = Prophet(daily_seasonality = True) # the Prophet class (model)
     m.fit(data)
+    future = m.make_future_dataframe(periods=365) #we need to specify the number of days in future
+    prediction = m.predict(future)
+    df =prediction[['ds','yhat','yhat_lower','yhat_upper','trend','trend_lower','trend_upper' \
+                    'weekly','weekly_upper','weekly_lower']]
+    df['ds']=df['ds'].astype(str)
+    data_list = df.values.tolist()
+    return data_list

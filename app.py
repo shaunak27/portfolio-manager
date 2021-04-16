@@ -1,9 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, flash, session
-from forms import LoginForm, RegForm, deleteholdingForm, holdingForm, watchlistForm
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
-from flask import Flask, redirect, url_for, render_template
-from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm, deleteUserForm, UserEditForm, MLForm
+from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm, deleteUserForm, UserEditForm, MLForm, deleteholdingForm
 from flask_migrate import Migrate
 from stockprice import companydetails
 
@@ -60,12 +58,13 @@ def enterml():
         ).first()
 
         if data:
-            return redirect(url_for("chart"))
+            mldata = 3
+            return render_template("enterml.html", data=mldata)
         else:
             flash("Entered company in not a part of your holdings !")
             return redirect(url_for("dashboard"))
     form = MLForm()
-    return render_template("loginAdmin.html", form=form)
+    return render_template("enterml.html", form=form)
     
 @app.route("/indexAdmin.html" ,methods=["GET", "POST"])
 def dashboard_Admin():
