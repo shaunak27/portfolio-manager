@@ -6,6 +6,7 @@ from flask import Flask, redirect, url_for, render_template
 from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm, deleteUserForm, UserEditForm
 from flask_migrate import Migrate
 from stockprice import companydetails
+from getchartdata import getdata
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "myproj"
@@ -190,6 +191,18 @@ def logout():
 def charts():
     return render_template("chart.html")
 
+@app.route("/watchCharts.html")
+def watchlistCharts():    
+    pricedata = []
+    mystocks = Watchlist.query.filter_by(
+            panid = session['panid']
+        ).all()
+     
+    for x in mystocks:
+        pricedata.append(getdata(x.stockname,1))
+    
+    return render_template("watchCharts.html",mystocks=pricedata)
+   
 
 @app.route("/card.html")
 def news():
