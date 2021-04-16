@@ -246,59 +246,62 @@
                     </div>
 
                 </div>
-                    
+                <script>
+                    var mylist = [];
+                    var myListitem = [];
+                    var i=0,j=0;
+                    var pricerow =[]
+                </script>
+                {% for item in mystocks %}
+                    <script>
+                        myListitem = []
+                        
+                    </script>
+                    {% for prices in item%}
+                        <script>
+                            pricerow=[];
+                        </script>
+                        {% for x in prices%}
+                            <script>
+                                pricerow.push('{{x}}');   
+                            </script>
+                        {% endfor %}
+                            <script>
+                                myListitem.push(pricerow);
+                                
+                            </script>
+                    {% endfor %}
+                    <script>
+                        mylist.push(myListitem);
+                    </script>    
+                {% endfor %}
+                
+                
+                {% for stock in mystocks %}
+                   
                     <div class="row">
                         <div class="col-lg-12">
-                            <head>
-                                <script>
-                                    var mylist = [];
-                                    var myListitem = [];
-                                    var i=0,j=0;
-                                    var pricerow =[]
-                                </script>
-                                {% for item in mystocks %}
-                                    <script>
-                                        myListitem = []
-                                        
-                                    </script>
-                                    {% for prices in item%}
-                                        <script>
-                                            pricerow=[];
-                                        </script>
-                                        {% for x in prices%}
-                                            <script>
-                                                pricerow.push('{{x}}');   
-                                            </script>
-                                        {% endfor %}
-                                            <script>
-                                                myListitem.push(pricerow);
-                                                
-                                            </script>
-                                    {% endfor %}
-                                    <script>
-                                        mylist.push(myListitem);
-                                    </script>    
-                                {% endfor %}
-
+                            <head>        
                                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                                 <script type="text/javascript">
                                   google.charts.load('current', {'packages':['corechart']});
                                   google.charts.setOnLoadCallback(drawChart);
-                                  for(i = 0; i < mylist[0].length; i++)
+                                  
+                                  for(i = 0; i < mylist['{{loop.index}}' - 1].length; i++)
                                 {
                                     
-                                    mylist[0][i][1] = parseFloat(mylist[0][i][1])
+                                    mylist['{{loop.index}}' - 1][i][1] = parseFloat(mylist['{{loop.index}}' - 1][i][1])
                                     
-                                    mylist[0][i][2] = parseFloat(mylist[0][i][2])
-                                    mylist[0][i][3] = parseFloat(mylist[0][i][3])
-                                    mylist[0][i][4] = parseFloat(mylist[0][i][4])
+                                    mylist['{{loop.index}}' - 1][i][2] = parseFloat(mylist['{{loop.index}}' - 1][i][2])
+                                    mylist['{{loop.index}}' - 1][i][3] = parseFloat(mylist['{{loop.index}}' - 1][i][3])
+                                    mylist['{{loop.index}}' - 1][i][4] = parseFloat(mylist['{{loop.index}}' - 1][i][4])
                                     
                                 }
                               function drawChart() {
                                 
                                 
-                                console.log(mylist[0]);
-                                var data = google.visualization.arrayToDataTable(mylist[0], true);
+                                
+                                var data = google.visualization.arrayToDataTable(mylist['{{loop.index}}' - 1], true);
                                 
         
                             
@@ -306,7 +309,7 @@
                                   legend:'none'
                                 };
                             
-                                var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+                                var chart = new google.visualization.CandlestickChart(document.getElementById('{{loop.index}}'));
                             
                                 chart.draw(data, options);
                               }
@@ -314,15 +317,18 @@
                             </head>
                             <div class="center">
                             <body>
-                                <div id="chart_div" style="width: 1000px; height: 700px;"></div>
-                            </body>
+                                <div id= {{loop.index}} style="width: 1000px; height: 700px;"></div>
+                                <br>
+                                <br>
+                            </body> 
                             </div>
                             
                         </div>
 
-
+                        
                     </div>
-                       
+                    
+                     {% endfor %}  
 
             </div>
         </div>

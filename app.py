@@ -216,7 +216,7 @@ def watchlistCharts():
     for x in mystocks:
         pricedata.append(getdata(x.stockname,1))
     
-    return render_template("watchCharts.html",mystocks=pricedata)
+    return render_template("watchCharts.html",mystocks=pricedata,ivar = 0)
    
 
 @app.route("/card.html")
