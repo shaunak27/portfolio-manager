@@ -278,6 +278,8 @@ def watchlist():
     for rec in records:
         d = companydetails(rec.stockname.upper())
         rec.cmp = d.get('cmp',0.0)
+        marketcap= d.get('marketcap',0.0),
+        peratio = d.get('pe',0.0),
         db.session.add(rec)
         db.session.commit()
     records = Watchlist.query.filter_by(
