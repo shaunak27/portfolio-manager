@@ -277,7 +277,7 @@
                 {% endfor %}
                 
                 
-                {% for stock in mystocks %}
+                {% for stock in data %}
                    
                     <div class="row">
                         <div class="col-lg-12">
@@ -306,7 +306,10 @@
         
                             
                                 var options = {
-                                  legend:'none'
+                                  legend:'none',
+                                  vAxis: { title: "Price (Rs.)" },
+                                  hAxis: { title: "Date" },
+                                  title: '{{stock.stockname}}'
                                 };
                             
                                 var chart = new google.visualization.CandlestickChart(document.getElementById('{{loop.index}}'));
