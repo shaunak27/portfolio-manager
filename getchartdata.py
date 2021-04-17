@@ -3,6 +3,7 @@ from datetime import date
 from math import ceil
 import pandas as pd
 import os
+import io
 import matplotlib.pyplot as plt
 #from fbprophet import Prophet
 
@@ -21,9 +22,7 @@ def getdata(arg,years):
 
     r = requests.get(url)
 
-    with open(f'buff{arg.lower()}.csv','w') as f:
-        f.write(r.content.decode())
-    data = pd.read_csv(f'./buff{arg.lower()}.csv')
+    data = pd.read_csv(io.StringIO(r.content.decode('utf-8')))
     data = data.dropna(axis=0)
     data["Date"] = data["Date"].astype(str)
     mylist = data.loc[:,['Date','Low','Open','Close','High']]

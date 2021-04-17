@@ -163,6 +163,14 @@ def dashboard():
     records = Holdings.query.filter_by(
             panid = session['panid']
         ).all()
+    for rec in records:
+        d = companydetails(rec.stockname.upper())
+        rec.cmp = d.get('cmp',0.0)
+        db.session.add(rec)
+        db.session.commit()
+    records = Holdings.query.filter_by(
+            panid = session['panid']
+        ).all()
     form = holdingForm()
     form2 = deleteholdingForm()
     return render_template("index.html", form=form,data=records,form2 = form2)
@@ -214,7 +222,7 @@ def watchlistCharts():
         ).all()
      
     for x in mystocks:
-        pricedata.append(getdata(x.stockname,1))
+        pricedata.append(getdata(x.stockname,1/4))
     
     return render_template("watchCharts.html",mystocks=pricedata,data=mystocks)
    
@@ -267,6 +275,14 @@ def watchlist():
     records = Watchlist.query.filter_by(
             panid = session['panid']
         ).all()
+    for rec in records:
+        d = companydetails(rec.stockname.upper())
+        rec.cmp = d.get('cmp',0.0)
+        db.session.add(rec)
+        db.session.commit()
+    records = Watchlist.query.filter_by(
+            panid = session['panid']
+        ).all()   
     form = watchlistForm()
     return render_template("table.html", form=form,data=records)
 
