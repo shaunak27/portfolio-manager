@@ -5,6 +5,7 @@ from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm
 from flask_migrate import Migrate
 from stockprice import companydetails
 from getchartdata import getdata
+from stocknews import companynews
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "myproj"
@@ -229,7 +230,14 @@ def watchlistCharts():
 
 @app.route("/card.html")
 def news():
-    return render_template("card.html")
+    a = dict()
+    records = Watchlist.query.filter_by(
+            panid = session['panid']
+        ).all()
+    for x in records :
+        a[f"{x.stockname}"] = companynews(x.stockname)
+    #print(a)
+    return render_template("card.html",records=records,a=a)
 
 @app.route("/table.html", methods=["GET", "POST"])
 def watchlist():
