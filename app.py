@@ -246,8 +246,13 @@ def sentiment():
     records = Watchlist.query.filter_by(
             panid = session['panid']
         ).all()
+    news_list = []
     for x in records :
-        a[f"{x.stockname}"] = get_sentiment(companynews(x.stockname))
+        news_list.append(companynews(x.stockname))
+    flat = [j for sub in news_list for j in sub]
+    sentiment_list = get_sentiment(flat)
+    for i,x in enumerate(records):
+        a[f"{x.stockname}"] = sentiment_list[i]
     return render_template("sentiment.html",records=records,a=a)    
 
 @app.route("/table.html", methods=["GET", "POST"])
