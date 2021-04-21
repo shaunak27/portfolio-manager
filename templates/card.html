@@ -78,7 +78,7 @@
                                 <i class="far fa-check-square"></i>News & Articles</a>
                         </li>
                         <li>
-                            <a href="card.html">
+                            <a href="sentiment.html">
                                 <i class="far fa-check-square"></i> Smart Suggestions</a>
                         </li>
                                 
@@ -120,7 +120,7 @@
                                 <i class="fas fa-book"></i>News & Articles</a>
                         </li>
                         <li>
-                            <a href="card.html">
+                            <a href="sentiment.html">
                                 <i class="far fa-check-square"></i> Smart Suggestions</a>
                         </li> 
 
@@ -236,9 +236,9 @@
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-
-                        {% for key,value in a.items()%}
                         <div class="row">
+                        {% for key,value in a.items()%}
+                        
                             <div class="col-md-4">
 
                                 <div class="card border border-primary">
@@ -260,11 +260,11 @@
                                     </div>
                                 </div>
                             </div>
+                            
 
-
-                          
+                            {%endfor%}
                         </div>
-                        {%endfor%}
+                       
                     </div>
                 </div>
             </div>

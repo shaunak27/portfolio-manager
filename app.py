@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from stockprice import companydetails
 from getchartdata import getdata
 from stocknews import companynews
+from sentiment import get_sentiment
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "myproj"
@@ -238,6 +239,16 @@ def news():
         a[f"{x.stockname}"] = companynews(x.stockname)
     #print(a)
     return render_template("card.html",records=records,a=a)
+
+@app.route("/sentiment.html")
+def sentiment():
+    a = dict()
+    records = Watchlist.query.filter_by(
+            panid = session['panid']
+        ).all()
+    for x in records :
+        a[f"{x.stockname}"] = get_sentiment(companynews(x.stockname))
+    return render_template("sentiment.html",records=records,a=a)    
 
 @app.route("/table.html", methods=["GET", "POST"])
 def watchlist():
