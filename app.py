@@ -4,9 +4,10 @@ from datetime import datetime, date
 from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm, deleteUserForm, UserEditForm, MLForm, deleteholdingForm
 from flask_migrate import Migrate
 from stockprice import companydetails
-from getchartdata import getdata
+from getchartdata import get_chartdata
 from stocknews import companynews
 from sentiment import get_sentiment
+from getmldata import getdata
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "myproj"
@@ -56,13 +57,13 @@ def login_Admin():
 def enterml():
 
     if request.method == "POST":
-        data = Holdings.query.filter_by(
+        data = Watchlist.query.filter_by(
             stockname=request.form["stockname"]         
         ).first()
 
         if data:
-            mldata = 3
-            return render_template("enterml.html", data=mldata)
+            mldata =  getdata(data.stockname,1)
+            return render_template("chart.html", data=mldata)
         else:
             flash("Entered company in not a part of your holdings !")
             return redirect(url_for("dashboard"))
@@ -224,7 +225,7 @@ def watchlistCharts():
         ).all()
      
     for x in mystocks:
-        pricedata.append(getdata(x.stockname,1/4))
+        pricedata.append(get_chartdata(x.stockname,1/4))
     
     return render_template("watchCharts.html",mystocks=pricedata,data=mystocks)
    

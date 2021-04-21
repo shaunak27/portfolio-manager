@@ -29,7 +29,7 @@ def getdata(arg,years):
     m.fit(data)
     future = m.make_future_dataframe(periods=365) #we need to specify the number of days in future
     prediction = m.predict(future)
-    df =prediction[['ds','yhat','yhat_lower','yhat_upper','trend','trend_lower','trend_upper' ,'weekly','weekly_upper','weekly_lower']]
+    df =prediction[['ds','yhat','trend']]
     df['ds']=df['ds'].astype(str)
     data_list = df.values.tolist()
     return data_list

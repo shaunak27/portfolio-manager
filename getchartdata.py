@@ -7,7 +7,7 @@ import io
 import matplotlib.pyplot as plt
 #from fbprophet import Prophet
 
-def getdata(arg,years):
+def get_chartdata(arg,years):
     today = date.today()
     now_str = today.strftime("%d/%m/%Y")
     DD = datetime.timedelta(days=ceil(7*52.177457*years))
