@@ -62,7 +62,7 @@ def enterml():
         ).first()
 
         if data:
-            mldata =  getdata(data.stockname,1)
+            mldata =  getdata(data.stockname,5)
             return render_template("chart.html", data=mldata)
         else:
             flash("Entered company in not a part of your holdings !")
