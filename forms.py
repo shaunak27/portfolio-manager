@@ -24,15 +24,18 @@ class LoginForm(FlaskForm):
     panid = StringField("Pan Id.", validators=[DataRequired()])
     submit = SubmitField("Login")
 
+
 class LoginAdminForm(FlaskForm):
     loginid = PasswordField("Login ID", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
     password = PasswordField("Password")
     submit = SubmitField("Login")
 
+
 class MLForm(FlaskForm):
     stockname = StringField("Stock Name", validators=[DataRequired()])
     submit = SubmitField("Generate Predictions")
+
 
 class holdingForm(FlaskForm):
     orderid = IntegerField("Order Id.", validators=[DataRequired()])
@@ -42,17 +45,20 @@ class holdingForm(FlaskForm):
     quantity = IntegerField("Quantity", validators=[DataRequired()])
     submit = SubmitField("Register")
 
+
 class deleteholdingForm(FlaskForm):
     orderid = IntegerField("Order Id.", validators=[DataRequired()])
     submit = SubmitField("Register")
+
 
 class watchlistForm(FlaskForm):
     stockname = StringField("Stock Name", validators=[DataRequired()])
     submit = SubmitField("Register")
 
+
 class deleteUserForm(FlaskForm):
     panid = StringField("Pan Id.", validators=[DataRequired()])
-    submit = SubmitField("Register")    
+    submit = SubmitField("Register")
 
 
 class UserEditForm(FlaskForm):
@@ -60,4 +66,4 @@ class UserEditForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
     panid = StringField("Pan Id.", validators=[DataRequired()])
-    submit = SubmitField("Register")    
+    submit = SubmitField("Register")

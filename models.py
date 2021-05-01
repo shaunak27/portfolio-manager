@@ -14,15 +14,17 @@ class Investor(db.Model):
         self.email = email
         self.password = password
 
+
 class Admin(db.Model):
     loginid = db.Column(db.String(20), primary_key=True)
     email = db.Column(db.String(30))
     password = db.Column(db.String(15))
-    
+
     def __init__(self, loginid, email, password):
         self.loginid = loginid
         self.email = email
         self.password = password
+
 
 class Holdings(db.Model):
     orderid = db.Column(db.Integer, primary_key=True)
@@ -32,7 +34,8 @@ class Holdings(db.Model):
     buyingprice = db.Column(db.Integer)
     panid = db.Column(db.String(10))
     cmp = db.Column(db.Float)
-    def __init__(self, orderid, stockname, quantity, buyingprice, date,panid,cmp):
+
+    def __init__(self, orderid, stockname, quantity, buyingprice, date, panid, cmp):
         self.orderid = orderid
         self.stockname = stockname
         self.quantity = quantity
@@ -40,14 +43,17 @@ class Holdings(db.Model):
         self.date = date
         self.panid = panid
         self.cmp = cmp
+
+
 class Watchlist(db.Model):
-    stockname = db.Column(db.String(10),primary_key=True)
+    stockname = db.Column(db.String(10), primary_key=True)
     panid = db.Column(db.String(10))
     sector = db.Column(db.String(20))
     cmp = db.Column(db.Float)
     marketcap = db.Column(db.Float)
     peratio = db.Column(db.Float)
-    def __init__(self, sector, stockname, cmp, marketcap, peratio,panid):
+
+    def __init__(self, sector, stockname, cmp, marketcap, peratio, panid):
         self.stockname = stockname
         self.panid = panid
         self.cmp = cmp

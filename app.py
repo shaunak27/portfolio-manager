@@ -1,7 +1,17 @@
 from flask import Flask, redirect, url_for, render_template, request, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
-from forms import LoginForm, RegForm, holdingForm, watchlistForm, LoginAdminForm, deleteUserForm, UserEditForm, MLForm, deleteholdingForm
+from forms import (
+    LoginForm,
+    RegForm,
+    holdingForm,
+    watchlistForm,
+    LoginAdminForm,
+    deleteUserForm,
+    UserEditForm,
+    MLForm,
+    deleteholdingForm,
+)
 from flask_migrate import Migrate
 from stockprice import companydetails
 from getchartdata import get_chartdata
@@ -14,7 +24,9 @@ app.config["SECRET_KEY"] = "myproj"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///manager.sqlite3"
 db = SQLAlchemy(app)
 from models import *
+
 migrate = Migrate(app, db)
+
 
 @app.route("/login.html", methods=["GET", "POST"])
 def login():
@@ -33,19 +45,21 @@ def login():
     form = LoginForm()
     return render_template("login.html", form=form)
 
+
 @app.route("/loginAdmin.html", methods=["GET", "POST"])
 def login_Admin():
 
     if request.method == "POST":
         admin = Admin.query.filter_by(
-            loginid=request.form["loginid"], email=request.form["email"],
-            password=request.form["password"]
+            loginid=request.form["loginid"],
+            email=request.form["email"],
+            password=request.form["password"],
         ).first()
 
         if admin:
             session["logged_in"] = True
             session["loginid"] = admin.loginid
-            
+
             return redirect(url_for("dashboard_Admin"))
         else:
             flash("Login details are Incorrect !")
@@ -53,67 +67,68 @@ def login_Admin():
     form = LoginAdminForm()
     return render_template("loginAdmin.html", form=form)
 
+
 @app.route("/enterml.html", methods=["GET", "POST"])
 def enterml():
 
     if request.method == "POST":
-        data = Watchlist.query.filter_by(
-            stockname=request.form["stockname"]         
-        ).first()
+        data = Watchlist.query.filter_by(stockname=request.form["stockname"]).first()
 
         if data:
-            mldata =  getdata(data.stockname,5)
+            mldata = getdata(data.stockname, 5)
             return render_template("chart.html", data=mldata)
         else:
             flash("Entered company in not a part of your holdings !")
             return redirect(url_for("dashboard"))
     form = MLForm()
     return render_template("enterml.html", form=form)
-    
-@app.route("/indexAdmin.html" ,methods=["GET", "POST"])
+
+
+@app.route("/indexAdmin.html", methods=["GET", "POST"])
 def dashboard_Admin():
-    users= Investor.query.all()
+    users = Investor.query.all()
     if request.method == "POST":
-        if request.form['btn'] == 'submit' :
-                deleteuser = Investor.query.filter_by(
-                    panid = request.form['panid']
-                ).first()
-                if deleteuser is None:
-                    flash("Entered Details could not be fetched !")
-                    return redirect(url_for("dashboard_Admin"))
-                db.session.delete(deleteuser)
-                db.session.commit()
-                flash("Record was successfully deleted")
+        if request.form["btn"] == "submit":
+            deleteuser = Investor.query.filter_by(panid=request.form["panid"]).first()
+            if deleteuser is None:
+                flash("Entered Details could not be fetched !")
                 return redirect(url_for("dashboard_Admin"))
-        elif request.form['btn'] == 'edit' :
-         
-            edituser = Investor.query.filter_by(
-                panid = request.form['panid']
-            ).first()
+            db.session.delete(deleteuser)
+            db.session.commit()
+            flash("Record was successfully deleted")
+            return redirect(url_for("dashboard_Admin"))
+        elif request.form["btn"] == "edit":
+
+            edituser = Investor.query.filter_by(panid=request.form["panid"]).first()
             if edituser is None:
                 flash("Entered Details could not be fetched !")
                 return redirect(url_for("dashboard_Admin"))
-            edituser.username=request.form["username"]
-            edituser.password=request.form["password"]
-            edituser.email=request.form["email"]
-            
+            edituser.username = request.form["username"]
+            edituser.password = request.form["password"]
+            edituser.email = request.form["email"]
+
             db.session.add(edituser)
             db.session.commit()
             flash("Record was successfully updated")
             return redirect(url_for("dashboard_Admin"))
-                  
+
     form = deleteUserForm()
     form1 = UserEditForm()
-    return render_template("indexAdmin.html",users = users,form=form,form1=form1)
+    return render_template("indexAdmin.html", users=users, form=form, form1=form1)
+
 
 @app.route("/index.html", methods=["GET", "POST"])
 def dashboard():
-    if session.get("logged_in") is None or session.get("panid") is None or session["logged_in"] == False:
+    if (
+        session.get("logged_in") is None
+        or session.get("panid") is None
+        or session["logged_in"] == False
+    ):
         return redirect(url_for("login"))
     if request.method == "POST":
-        if request.form['btn'] == 'submit':
+        if request.form["btn"] == "submit":
             d = companydetails(request.form["stockname"].upper())
-            if len(d) is 0 :
+            if len(d) is 0:
                 flash("Entered Details could not be fetched !")
                 return redirect(url_for("dashboard"))
             data = Holdings(
@@ -122,39 +137,35 @@ def dashboard():
                 quantity=request.form["quantity"],
                 date=datetime.strptime(request.form["date"], "%d/%m/%Y").date(),
                 buyingprice=request.form["buyingprice"],
-                panid=session['panid'],
-                cmp = d.get('cmp',0.0)
+                panid=session["panid"],
+                cmp=d.get("cmp", 0.0),
             )
             db.session.add(data)
             db.session.commit()
             flash("Record was successfully added")
             return redirect(url_for("dashboard"))
 
-        elif request.form['btn'] == 'edit':
+        elif request.form["btn"] == "edit":
             d = companydetails(request.form["stockname"].upper())
-            if len(d) is 0 :
+            if len(d) is 0:
                 flash("Entered Details could not be fetched !")
                 return redirect(url_for("dashboard"))
-            rec = Holdings.query.filter_by(
-            orderid = request.form['orderid']
-            ).first()
+            rec = Holdings.query.filter_by(orderid=request.form["orderid"]).first()
             if rec is None:
                 flash("Entered Details could not be fetched !")
                 return redirect(url_for("dashboard"))
-            rec.stockname=request.form["stockname"]
-            rec.quantity=request.form["quantity"]
-            rec.date=datetime.strptime(request.form["date"], "%d/%m/%Y").date()
-            rec.buyingprice=request.form["buyingprice"]
-            rec.cmp = d.get('cmp',0.0)
+            rec.stockname = request.form["stockname"]
+            rec.quantity = request.form["quantity"]
+            rec.date = datetime.strptime(request.form["date"], "%d/%m/%Y").date()
+            rec.buyingprice = request.form["buyingprice"]
+            rec.cmp = d.get("cmp", 0.0)
             db.session.add(rec)
             db.session.commit()
             flash("Record was successfully updated")
             return redirect(url_for("dashboard"))
 
-        elif request.form['btn'] == 'delete' :
-            rec = Holdings.query.filter_by(
-            orderid = request.form['orderid']
-            ).first()
+        elif request.form["btn"] == "delete":
+            rec = Holdings.query.filter_by(orderid=request.form["orderid"]).first()
             if rec is None:
                 flash("Entered Details could not be fetched !")
                 return redirect(url_for("dashboard"))
@@ -163,20 +174,16 @@ def dashboard():
             flash("Record was successfully deleted")
             return redirect(url_for("dashboard"))
 
-    records = Holdings.query.filter_by(
-            panid = session['panid']
-        ).all()
+    records = Holdings.query.filter_by(panid=session["panid"]).all()
     for rec in records:
         d = companydetails(rec.stockname.upper())
-        rec.cmp = d.get('cmp',0.0)
+        rec.cmp = d.get("cmp", 0.0)
         db.session.add(rec)
         db.session.commit()
-    records = Holdings.query.filter_by(
-            panid = session['panid']
-        ).all()
+    records = Holdings.query.filter_by(panid=session["panid"]).all()
     form = holdingForm()
     form2 = deleteholdingForm()
-    return render_template("index.html", form=form,data=records,form2 = form2)
+    return render_template("index.html", form=form, data=records, form2=form2)
 
 
 @app.route("/")
@@ -217,78 +224,77 @@ def logout():
 def charts():
     return render_template("chart.html")
 
+
 @app.route("/watchCharts.html")
-def watchlistCharts():    
+def watchlistCharts():
     pricedata = []
-    mystocks = Watchlist.query.filter_by(
-            panid = session['panid']
-        ).all()
-     
+    mystocks = Watchlist.query.filter_by(panid=session["panid"]).all()
+
     for x in mystocks:
-        pricedata.append(get_chartdata(x.stockname,1/4))
-    
-    return render_template("watchCharts.html",mystocks=pricedata,data=mystocks)
-   
+        pricedata.append(get_chartdata(x.stockname, 1 / 4))
+
+    return render_template("watchCharts.html", mystocks=pricedata, data=mystocks)
+
 
 @app.route("/card.html")
 def news():
     a = dict()
-    records = Watchlist.query.filter_by(
-            panid = session['panid']
-        ).all()
-    for x in records :
+    records = Watchlist.query.filter_by(panid=session["panid"]).all()
+    for x in records:
         a[f"{x.stockname}"] = companynews(x.stockname)
-    #print(a)
-    return render_template("card.html",records=records,a=a)
+    # print(a)
+    return render_template("card.html", records=records, a=a)
+
 
 @app.route("/sentiment.html")
 def sentiment():
     a = dict()
-    records = Watchlist.query.filter_by(
-            panid = session['panid']
-        ).all()
+    records = Watchlist.query.filter_by(panid=session["panid"]).all()
     news_list = []
-    for x in records :
+    for x in records:
         news_list.append(companynews(x.stockname))
     flat = [j for sub in news_list for j in sub]
     sentiment_list = get_sentiment(flat)
-    for i,x in enumerate(records):
+    for i, x in enumerate(records):
         a[f"{x.stockname}"] = sentiment_list[i]
-    return render_template("sentiment.html",records=records,a=a)    
+    return render_template("sentiment.html", records=records, a=a)
+
 
 @app.route("/table.html", methods=["GET", "POST"])
 def watchlist():
-    if session.get("logged_in") is None or session.get("panid") is None or session["logged_in"] == False:
+    if (
+        session.get("logged_in") is None
+        or session.get("panid") is None
+        or session["logged_in"] == False
+    ):
         return redirect(url_for("login"))
     if request.method == "POST":
-        if request.form['btn'] == 'submit':
+        if request.form["btn"] == "submit":
             d = companydetails(request.form["stockname"].upper())
-            entries = Watchlist.query.filter_by(
-                panid = session['panid']
-            ).all()
+            entries = Watchlist.query.filter_by(panid=session["panid"]).all()
             for e in entries:
                 if e.stockname == request.form["stockname"].upper():
                     d = {}
                     break
 
-            if len(d) is 0 :
+            if len(d) is 0:
                 flash("Entered Details could not be fetched !")
                 return redirect(url_for("watchlist"))
             data = Watchlist(
                 stockname=request.form["stockname"].upper(),
-                cmp = d.get('cmp',0.0),
-                marketcap= d.get('marketcap',0.0),
-                sector = d.get('sector','none'),
-                peratio = d.get('pe',0.0),
-                panid=session['panid']
+                cmp=d.get("cmp", 0.0),
+                marketcap=d.get("marketcap", 0.0),
+                sector=d.get("sector", "none"),
+                peratio=d.get("pe", 0.0),
+                panid=session["panid"],
             )
             db.session.add(data)
             db.session.commit()
             flash("Record was successfully added")
             return redirect(url_for("watchlist"))
-        elif request.form['btn'] == 'delete':
+        elif request.form["btn"] == "delete":
             rec = Watchlist.query.filter_by(
-            stockname = request.form['stockname'].upper()
+                stockname=request.form["stockname"].upper()
             ).first()
             if rec is None:
                 flash("Entered Details could not be fetched !")
@@ -297,21 +303,17 @@ def watchlist():
             db.session.commit()
             flash("Record was successfully deleted")
             return redirect(url_for("watchlist"))
-    records = Watchlist.query.filter_by(
-            panid = session['panid']
-        ).all()
+    records = Watchlist.query.filter_by(panid=session["panid"]).all()
     for rec in records:
         d = companydetails(rec.stockname.upper())
-        rec.cmp = d.get('cmp',0.0)
-        rec.marketcap= d.get('marketcap',0.0)
-        rec.peratio = d.get('pe',0.0)
+        rec.cmp = d.get("cmp", 0.0)
+        rec.marketcap = d.get("marketcap", 0.0)
+        rec.peratio = d.get("pe", 0.0)
         db.session.add(rec)
         db.session.commit()
-    records = Watchlist.query.filter_by(
-            panid = session['panid']
-        ).all()   
+    records = Watchlist.query.filter_by(panid=session["panid"]).all()
     form = watchlistForm()
-    return render_template("table.html", form=form,data=records)
+    return render_template("table.html", form=form, data=records)
 
 
 if __name__ == "__main__":
