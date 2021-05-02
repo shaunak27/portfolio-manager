@@ -18,7 +18,7 @@
 
 
 ##  💻 About The Project
-We present our project named, TradeCast: A Financial portfolio manager in the form of a Web Application, to help investors gain fundamental insights into the stock market through the lens of graphical, tabular and statistical visualizations. Through sections like Holdings, Watchlist, Charts, News, Machine Learning Predictor and many more, the user can obtain invaluable insights into the investment they have made or are about to make.
+We present TradeCast: A Financial portfolio manager in the form of a Web Application, to help investors gain fundamental insights into the stock market through the lens of graphical, tabular and statistical visualizations. Through sections like Holdings, Watchlist, Charts, News, Machine Learning Predictor and many more, the user can gain invaluable insights into the investment they have made or are about to make.
 
 ## 🌟 Features
 
