@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request, flash, session
+from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 from forms import (
@@ -23,6 +24,14 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "myproj"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///manager.sqlite3"
 db = SQLAlchemy(app)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'tradecasttester@gmail.com'
+app.config['MAIL_PASSWORD'] = 'TradeCast1'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail= Mail(app)
 from models import *
 
 migrate = Migrate(app, db)
@@ -38,6 +47,7 @@ def login():
             session["logged_in"] = True
             session["username"] = user.username
             session["panid"] = user.panid
+            session['sentmail'] = 0
             return redirect(url_for("dashboard"))
         else:
             flash("Login details are Incorrect !")
@@ -173,7 +183,6 @@ def dashboard():
             db.session.commit()
             flash("Record was successfully deleted")
             return redirect(url_for("dashboard"))
-
     records = Holdings.query.filter_by(panid=session["panid"]).all()
     for rec in records:
         d = companydetails(rec.stockname.upper())
@@ -181,6 +190,14 @@ def dashboard():
         db.session.add(rec)
         db.session.commit()
     records = Holdings.query.filter_by(panid=session["panid"]).all()
+    if not session['sentmail']:
+        msg = Message('Auto Notification', sender = 'tradecasttester@gmail.com', recipients = ['shaunak.halbe@gmail.com','akshaykulkarni.0606@gmail.com'])
+        msg.body = "The following stocks have risen since you bought them:\n"
+        for rec in records:    
+            if rec.cmp > rec.buyingprice:    
+                msg.body += f"{rec.stockname} : {rec.cmp}\n"
+        mail.send(msg)
+        session['sentmail'] = 1
     form = holdingForm()
     form2 = deleteholdingForm()
     return render_template("index.html", form=form, data=records, form2=form2)
@@ -217,6 +234,7 @@ def logout():
     session.pop("username", None)
     session.pop("panid", None)
     session["logged_in"] = False
+    session['sentmail'] = 0
     return redirect(url_for("login"))
 
 
@@ -317,5 +335,4 @@ def watchlist():
 
 
 if __name__ == "__main__":
-
     app.run(debug=True)
